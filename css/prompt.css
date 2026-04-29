@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+    background-color: #dbd6cf;
+    background-image: url('../img/TipografiaMonoInkTrap/Recurso 7.svg');
+    background-size: 100% auto;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}

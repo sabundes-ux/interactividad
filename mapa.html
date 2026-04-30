@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Demo | Cálculo de Rutas</title>
+    <meta name="description" content="Demo de cálculo de rutas con Leaflet y Leaflet Routing Machine">
+    <meta name="keywords" content="Leaflet, Leaflet Routing Machine, cálculo de rutas, mapa, demo">
+    <meta name="author" content="JuanFuent.es">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+    <style>
+        /* Estilos base para que el mapa ocupe toda la pantalla */
+        html, body {
+            height: 100%; /* Asegura que el cuerpo ocupe toda la altura */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Evita barras de desplazamiento */
+        }
+        #mapa {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Importante: Carga de CSS de Leaflet 
+        @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+        */
+        /* Importante: Carga de CSS del plugin Leaflet Routing Machine */
+        /* Estilo para el panel de información flotante */
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000; /* Asegura que esté sobre el mapa */
+            background: rgba(20, 20, 20, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-panel h2 {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .info-panel p {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #d0d0d0;
+        }
+
+        .info-panel button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+
+        .info-panel button:hover {
+            background: #2563eb;
+        }
+
+        .info-panel button.danger {
+            background: #ef4444;
+        }
+
+        .info-panel button.danger:hover {
+            background: #dc2626;
+        }
+
+        #coordenadas-lista {
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 10px;
+            font-size: 0.8em;
+        }
+
+        .coordenada-item {
+            padding: 5px;
+            margin: 3px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mapa">
+        <!-- El mapa de Leaflet se inicializará aquí -->
+    </div>
+
+    <!-- Panel de información flotante (reemplaza el panel lateral de Tailwind) -->
+    <div class="info-panel">
+        <h2>Detalles de la Ruta</h2>
+        <p id="origen-info"><strong>Origen:</strong> Cargando...</p>
+        <p id="puntos-info"><strong>Puntos agregados:</strong> 0</p>
+        <p id="route-distance" class="mt-2"><strong>Distancia Total:</strong> ---</p>
+        <p id="route-time"><strong>Tiempo Total:</strong> ---</p>
+        <div id="coordenadas-lista"></div>
+        <label for="coordenadas-array" style="display: block; margin-top: 10px; font-size: 0.85em; font-weight: bold;">Arreglo de Coordenadas:</label>
+        <textarea id="coordenadas-array" readonly style="width: 100%; height: 80px; background: rgba(40, 40, 40, 0.8); color: #e0e0e0; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; padding: 8px; font-family: 'Courier New', monospace; font-size: 0.75em; resize: none; margin-top: 5px;"></textarea>
+        <button id="btn-limpiar">Limpiar Marcadores</button>
+        <p style="font-size: 0.7em; margin-top: 10px; color: #888;">Haz clic en el mapa para agregar puntos</p>
+    </div>
+
+
+    <!-- Carga de Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Carga del plugin Leaflet Routing Machine -->
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <script src="./js/mapa.js"></script>
+
+
+</body>
+</html>
